@@ -13,9 +13,9 @@ module.exports = {
         filename: './js/[name].js'
     },
     resolve: {
-        extensions: ['.js', '.json', '.wasm'],
+        extensions: ['.js', '.json', '.wasm', '.jsx'],//可以省略后缀名为js jsx json的文件
         alias: {
-            "@": path.resolve(__dirname, 'components/')
+            "@": path.resolve(__dirname, 'src/')
         }
     },
     module: {
@@ -34,12 +34,17 @@ module.exports = {
                 }
             },
             {
-                test: /.(le|c)ss$/,
-                exclude: /node_modules/,
+                test: /\.css$/,
                 use: [
                     'style-loader',
                     'css-loader',
-                    'postcss-loader',
+                ]
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
                     'less-loader'
                 ]
             },
