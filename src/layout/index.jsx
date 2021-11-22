@@ -8,6 +8,13 @@ const Main = (props) => {
   const style = {
     display: 'flex'
   }
+
+  const cont = {
+    background: 'white',
+    padding: '20px',
+    width: '100%',
+    height: '100%'
+  }
   return (
     <Layout>
       <div style={style}>
@@ -18,7 +25,10 @@ const Main = (props) => {
           {/* 头部导航 */}
           <Header />
           {/* 显示内容区 */}
-          <Content />
+          <div style={cont}>
+            <Content />
+          </div>
+
         </Layout>
       </div>
     </Layout>

@@ -1,12 +1,15 @@
 import React from "react";
 import { Menu, Modal, Layout, Avatar, Dropdown } from "antd";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import "./index.less";
 import avatar from '../../img/avat.jpg'
+import { connect } from "react-redux";
+import { loginOut } from '../../redux/actions'
+import Breadcrumb from '../../components/BreadCrumb'
 const { Header } = Layout;
 
-const LayoutHeader = (props) => {
-
+const LayoutHeader = props => {
+  const { loginOut } = props
   const handleLogout = (token) => {
     Modal.confirm({
       title: "注销",
@@ -14,14 +17,14 @@ const LayoutHeader = (props) => {
       okText: "确定",
       cancelText: "取消",
       onOk: () => {
-        logout(token);
+        loginOut();
       },
     });
   };
   const onClick = ({ key }) => {
     switch (key) {
       case "logout":
-        handleLogout(token);
+        handleLogout();
         break;
       default:
         break;
@@ -48,6 +51,7 @@ const LayoutHeader = (props) => {
   return <Header>
     {/* <Hamburger />
         <BreadCrumb /> */}
+    <Breadcrumb />
     <div className="right-menu">
       <div className="dropdown-wrap">
         <Dropdown overlay={menu}>
@@ -58,4 +62,4 @@ const LayoutHeader = (props) => {
     </div>
   </Header>
 };
-export default LayoutHeader;
+export default connect(null, { loginOut })(withRouter(LayoutHeader));

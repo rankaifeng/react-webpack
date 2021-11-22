@@ -1,6 +1,7 @@
 import { userLogin } from '../../api/AllApi'
 import {
   LOGIN_STATUS,
+  LOGIN_OUT
 } from '../constant';
 /**
  * 用户登录
@@ -14,6 +15,14 @@ export const login = data => dispatch => {
       sessionStorage.setItem('token', auth_token)
     })
 };
+
+/**
+ * 退出登录
+ */
+export const loginOut = () => dispatch => {
+  sessionStorage.removeItem('token')
+  dispatch(clearToken())
+}
 /**
  * 设置token
  * @param {*} token 
@@ -24,3 +33,11 @@ export const setToken = token => {
     token,
   };
 };
+/**
+ * 清空token
+ */
+export const clearToken = () => {
+  return {
+    type: LOGIN_OUT,
+  }
+}
