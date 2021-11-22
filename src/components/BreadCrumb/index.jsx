@@ -9,15 +9,15 @@ import "./index.less";
 const getPath = (menuList, pathname) => {
   let temppath = [];
   try {
-    function getNodePath(node) {
+    const getNodePath = node => {
       temppath.push(node);
       //找到符合条件的节点，通过throw终止掉递归
       if (node.path === pathname) {
         throw new Error("GOT IT!");
       }
       if (node.children && node.children.length > 0) {
-        for (var i = 0; i < node.children.length; i++) {
-          getNodePath(node.children[i]);
+        for (let n in node.children) {
+          getNodePath(node.children[n]);
         }
         //当前节点的子节点遍历完依旧没找到，则删除路径中的该节点
         temppath.pop();
@@ -26,8 +26,8 @@ const getPath = (menuList, pathname) => {
         temppath.pop();
       }
     }
-    for (let i = 0; i < menuList.length; i++) {
-      getNodePath(menuList[i]);
+    for (let node in menuList) {
+      getNodePath(menuList[node]);
     }
   } catch (e) {
     return temppath;
@@ -39,9 +39,7 @@ const BreadCrumb = (props) => {
   const { pathname } = location;
   let path = getPath(menuList, pathname);
   const first = path && path[0];
-  if (first && first.title.trim() !== "首页") {
-    path = [{ title: "首页", path: "/dashboard" }].concat(path);
-  }
+  if (first && first.title.trim() !== "首页") { path = [menuList[0]].concat(path) }
   return (
     <div className="Breadcrumb-container">
       <Breadcrumb>

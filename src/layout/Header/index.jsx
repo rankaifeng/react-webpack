@@ -10,7 +10,7 @@ const { Header } = Layout;
 
 const LayoutHeader = props => {
   const { loginOut } = props
-  const handleLogout = (token) => {
+  const handleLogout = () => {
     Modal.confirm({
       title: "注销",
       content: "确定要退出系统吗?",
@@ -49,8 +49,6 @@ const LayoutHeader = props => {
   );
 
   return <Header>
-    {/* <Hamburger />
-        <BreadCrumb /> */}
     <Breadcrumb />
     <div className="right-menu">
       <div className="dropdown-wrap">
