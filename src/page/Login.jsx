@@ -1,18 +1,22 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import { Button } from 'antd'
-import { userLogin } from '../api/AllApi'
+import { login } from '../redux/actions/user'
 const Login = props => {
-    const dispatch = useDispatch();
+    const { token, login } = props;
+    //获取登录状态
+    if (token) { return <Redirect to="/home" /> }
+
     return <Button type="primary"
         onClick={() => {
-            userLogin({
-                name:'admin',
-                password:'123123'
-            }).then(res=>{
-                console.log(res);
+            login({
+                name: 'admin',
+                password: '123123'
             })
-            // dispatch({ data: true, type: 'LOGIN_STATUS' })
         }}>登录</Button>
 }
-export default Login
+export default connect(
+    state => state.loginStatus,
+    { login })
+    (Login);

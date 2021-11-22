@@ -1,12 +1,14 @@
 import { LOGIN_STATUS } from '../constant';
-
-const loginStatus = (preState = false, action) => {
-    const { type, data } = action
+const initUserInfo = {
+    token: sessionStorage.getItem('token'),
+};
+const loginStatus = (state = initUserInfo, action) => {
+    const { type, token } = action
     switch (type) {
         case LOGIN_STATUS:
-            return data;
+            return { ...state, token };
         default:
-            return preState;
+            return state;
     }
 }
 export default loginStatus
